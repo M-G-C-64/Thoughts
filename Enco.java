@@ -138,7 +138,7 @@ public class Enco{
             String inp = sc.nextLine();
 
             if (inp.equals("thank you")){
-                out("DON'T FORGET TO UPLOAD THE TXT FILE TO github in yout Wish repo");
+                out("DON'T FORGET TO ADD, COMMIT AND PUSH THE FILES");
                 break;
             }
 
