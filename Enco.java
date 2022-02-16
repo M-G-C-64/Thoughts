@@ -107,7 +107,8 @@ public class Enco{
         out("Select your file here");
         String flnm = sc.nextLine();
 
-        String fullpath = "C:/Users/ganes/G/JavaFold/secre/" + flnm;
+        //Enco.java
+        String fullpath = "C:/Users/ganes/Thoughts/" + flnm;
         
         try{
             File f = new File(fullpath);
