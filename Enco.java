@@ -115,8 +115,9 @@ public class Enco{
             if (f.createNewFile()){
                 out("\nThis file doesn't exist, do you want to create a new file?");
                 String opinion = sc.nextLine();
-                if (opinion.equals("no")){
+                if (opinion.equals("no") || opinion.equals("No") || opinion.equals("NO")){
                     f.delete();
+                    out("No file is created");
                 }
                 if (opinion.equals("yes")){
                 out("file successfully created! "+ f.getName());}
