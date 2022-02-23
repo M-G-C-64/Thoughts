@@ -2,6 +2,8 @@ package Selectfilepackage;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.nio.file.Path;
+
 import Encopack.Enco;
 import Commands.Commands;
 
@@ -100,13 +102,15 @@ public class SelectFile implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         String flnm = flnmtf.getText();
+        String fullpath = System.getProperty("user.dir") + "/" + flnm;
+        Path datapath = Path.of(fullpath);
 
         if (e.getSource() == filnam){
             if (Enco.Selcfile(flnm, false) && !(flnm.isEmpty())){
                 displayOut.setForeground(Color.green);
                 fileresult.setText("File Retrieved Successfully");
                 frame.dispose();
-                new Commands();
+                new Commands(datapath);
             }else{
                 displayOut.setForeground(Color.red);
                 fileresult.setText("File not Found, Create new File?");
@@ -118,7 +122,7 @@ public class SelectFile implements ActionListener{
         else if (e.getSource() == yes){
             Enco.Selcfile(flnm, true);
             frame.dispose();
-            new Commands();
+            new Commands(datapath);
         }
     }
 

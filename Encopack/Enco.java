@@ -98,7 +98,11 @@ public class Enco{
         //String flnm = sc.nextLine();
 
         //Enco.java
-        String fullpath = "C:/Users/ganes/Thoughts/" + flnm;
+        //String fullpath = "C:/Users/ganes/Thoughts/" + flnm;
+
+        String fullpath = System.getProperty("user.dir") + "/" + flnm;
+        //System.out.println(System.getProperty("user.dir"));
+
         try{
             File f = new File(fullpath);
             if (f.createNewFile()){

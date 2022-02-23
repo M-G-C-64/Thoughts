@@ -2,7 +2,10 @@ package Commands;
 
 import java.awt.*;
 import java.awt.event.*;
-import Encopack.Enco;
+import java.nio.file.Path;
+
+//import Encopack.Enco;
+import newEntryJava.newEntryJava;
 
 /*
 import java.io.BufferedReader;
@@ -20,8 +23,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 //import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+//import javax.swing.JTextField;
+//import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 public class Commands implements ActionListener{
@@ -30,12 +33,13 @@ public class Commands implements ActionListener{
     JPanel panel3 = new JPanel();
     JLabel title;
     JButton newEntry, Reveal, Exit;
+    Path datapathP;
 
-    public Commands(){
+    public Commands(Path dataPath){
+
+        datapathP = dataPath;
 
         panel3 = new JPanel();
-        Commjf.setSize(900, 600);
-        Commjf.setLocation(150, 150);
         panel3.setBackground(Color.black);
         Commjf.getContentPane();
         panel3.setLayout(null);
@@ -68,11 +72,14 @@ public class Commands implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        
+        if (e.getSource() == newEntry){
+            Commjf.dispose();
+            new newEntryJava(datapathP);
+        }
     }
 
     public static void main (String[] args){
-        new Commands();
+        //new Commands(datapath);
     }
     
 }
