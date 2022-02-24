@@ -27,6 +27,8 @@ import javax.swing.JPanel;
 //import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
+import Encopack.Enco;
+
 public class Commands implements ActionListener{
 
     JFrame Commjf = new JFrame();
@@ -75,6 +77,15 @@ public class Commands implements ActionListener{
         if (e.getSource() == newEntry){
             Commjf.dispose();
             new newEntryJava(datapathP);
+        }
+
+        if (e.getSource() == Reveal){
+            Commjf.dispose();
+            Enco.showgui(datapathP);
+        }
+
+        if (e.getSource() == Exit){
+            Commjf.dispose();
         }
     }
 

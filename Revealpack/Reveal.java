@@ -1,7 +1,10 @@
-package newEntryJava;
+package Revealpack;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.nio.file.Path;
 
 import Encopack.Enco;
@@ -29,18 +32,18 @@ import javax.swing.JTextArea;
 //import javax.swing.SwingConstants;
 //import javax.swing.WindowConstants;
 
-public class newEntryJava implements ActionListener{
+public class Reveal implements ActionListener{
 
     JFrame frame = new JFrame("New Entry");
     JPanel panel = new JPanel(new GridBagLayout());
     JPanel panel2 = new JPanel(new GridBagLayout());
     JLabel EnterYourThought;
     JTextArea textArea;
-    JButton submit, back;
+    JButton back;
     Path datapathP;
 
-    public newEntryJava(Path datapath){
-        
+    public Reveal(BufferedReader br, Path datapath){
+
         datapathP = datapath;
 
         frame = new JFrame("ScrollPane to TextArea");
@@ -57,7 +60,21 @@ public class newEntryJava implements ActionListener{
         JScrollPane scroll = new JScrollPane(textArea);
         //scroll = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         
+        try
+        {
+            FileReader fread = new FileReader(datapath.toString());
+            BufferedReader bread = new BufferedReader(fread);
 
+            String buff;
+            while ((buff = bread.readLine()) != null){
+                textArea.append(Enco.decod(buff)+"\n");
+            }
+            bread.close();
+            fread.close();
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 
         /*
         newEntry.setSize(900, 600);
@@ -67,7 +84,7 @@ public class newEntryJava implements ActionListener{
         panel4.setLayout(null);*/
 
         EnterYourThought = new JLabel();
-        EnterYourThought.setText("Enter the message...");
+        EnterYourThought.setText("These are your messages.");
         //EnterYourThought.setBounds(100, 500, 400, 30);
         EnterYourThought.setFont(new Font("Courier New", Font.PLAIN, 20));
         EnterYourThought.setBackground(Color.BLACK);
@@ -81,15 +98,6 @@ public class newEntryJava implements ActionListener{
         //back.setBounds(100, 550, 200, 30);
         back.addActionListener(this);
         panel.add(back);
-
-        submit = new JButton();
-        submit.setFont(new Font("Courier New", Font.BOLD, 20));
-        submit.setText("Submit");
-        submit.setForeground(Color.white);
-        submit.setBackground(Color.black);
-        //submit.setBounds(500, 550, 200, 30);
-        submit.addActionListener(this);
-        panel.add(submit);
 
         /*
         newEntry.add(panel5);
@@ -121,10 +129,6 @@ public class newEntryJava implements ActionListener{
         gc2.ipadx = 10;
         panel2.add(back, gc2);
 
-        gc2.gridx = 1;
-        gc2.gridy = 0;
-        panel2.add(submit, gc2);
-
         frame.add(panel, BorderLayout.CENTER); //We add the scroll, since the scroll already contains the textArea
         frame.add(panel2, BorderLayout.SOUTH);
         frame.pack();
@@ -137,15 +141,6 @@ public class newEntryJava implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         if (e.getSource() == back){
-            frame.dispose();
-            new Commands(datapathP);
-        }
-
-        if (e.getSource() == submit){
-            String tt = textArea.getText();
-            //System.out.println(tt);
-            if (!tt.isEmpty()){
-            Enco.writebro(datapathP, tt+"\n\n");}
             frame.dispose();
             new Commands(datapathP);
         }

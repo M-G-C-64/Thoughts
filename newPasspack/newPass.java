@@ -1,9 +1,8 @@
-package Textfieldpackage;
+package newPasspack;
 
 import java.awt.*;
 import java.awt.event.*;
 
-import Selectfilepackage.SelectFile;
 import Encopack.Enco;
 
 
@@ -29,15 +28,14 @@ import javax.swing.WindowConstants;
 
 //import org.w3c.dom.Text;
 
-public class TextField implements ActionListener{
+public class newPass implements ActionListener{
 
     JTextField JtfPass, flnmtf;
     JButton submit, filnam;
-    JLabel displayOut;
     JFrame frame;
-    JPanel panel, panel2;
+    JPanel panel;
 
-    public TextField(){
+    public newPass(){
 
         frame = new JFrame("Enco");
 
@@ -52,23 +50,13 @@ public class TextField implements ActionListener{
         panel.setBackground(Color.DARK_GRAY);
         frame.getContentPane();
 
-        displayOut = new JLabel("");
-        displayOut.setOpaque(true);
-        displayOut.setFont(new Font("Courier New", Font.BOLD, 40));
-        displayOut.setBackground(Color.DARK_GRAY);
-        
-        //Dimension size1 = displayOut.getPreferredSize();
-        displayOut.setBounds(235, 300, 400, 40);
-        panel.add(displayOut);
-        
-        JLabel label = new JLabel("Greetings! Authentication Required.");
+        JLabel label = new JLabel("Enter a new Password");
         label.setOpaque(true);
-        label.setFont(new Font("Verdana", Font.BOLD, 20));
+        label.setFont(new Font("Courier New", Font.BOLD, 20));
         label.setBackground(Color.DARK_GRAY);
         label.setForeground(Color.white);
 
-        Dimension size = label.getPreferredSize();
-        label.setBounds(200, 100, size.width, size.height);
+        label.setBounds(250, 100, 300, 40);
 
         //JTextField Tf = new JTextField();
         //Tf.setBounds(300, 200, 200, 20);
@@ -84,7 +72,6 @@ public class TextField implements ActionListener{
         panel.add(JtfPass);
         //panel.add(Outcome);
         panel.add(submit);
-        panel.add(displayOut);
         frame.add(panel);
 
         frame.setSize(800, 500);
@@ -98,31 +85,14 @@ public class TextField implements ActionListener{
         
         if (e.getSource() == submit){
             //Enco enc = new Enco();
-            
-            if (Enco.PassCheck(inpPass)){
-                //Outcome.setBorder(BorderFactory.createLineBorder(Color.green));
-                //Outcome.setText("WELCOME");
-
-                displayOut.setText("Access Granted");
-                displayOut.setForeground(Color.green);
-                
-                frame.dispose();
-                new SelectFile();
-                
-            }else{
-                //Outcome.setText("Pft skiddadle");
-                //Outcome.setBorder(BorderFactory.createLineBorder(Color.red));
-
-                displayOut.setText("Access Denied");
-                displayOut.setForeground(Color.red);
-
-            }
+            frame.dispose();
+            Enco.passSet(inpPass);
         }
     
     }
     
 
     public static void main (String[] args){
-        new TextField();
+        new newPass();
     }
 }

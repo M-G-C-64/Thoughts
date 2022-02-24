@@ -1,7 +1,9 @@
 package Encopack;
 
 // https://textuploader.com/tdu5h/raw
-
+import Revealpack.Reveal;
+import Textfieldpackage.TextField;
+import newPasspack.newPass;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,7 +12,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Enco{
@@ -21,7 +22,7 @@ public class Enco{
         System.out.println(tt);
     }
     
-    static void show(Path datapath){
+    public static void show(Path datapath){
 
         // shows the list of thoughts
 
@@ -47,7 +48,27 @@ public class Enco{
 
     }
 
-    static void writebro(Path datapath, String ss){
+    public static void showgui(Path datapath){
+                // shows the list of thoughts
+
+                out("here is your list of thoughts, make sure your'e private");
+        
+                try
+                {
+                    FileReader fread = new FileReader(datapath.toString());
+                    BufferedReader bread = new BufferedReader(fread);
+        
+                    new Reveal(bread, datapath);
+
+                    bread.close();
+                    fread.close();
+        
+                }catch(IOException e){
+                    e.printStackTrace();
+                }
+    }
+
+    public static void writebro(Path datapath, String ss){
 
         // writes the given string into the file
 
@@ -63,6 +84,7 @@ public class Enco{
     }
 
     static String encod (String ss){
+        ss = ss+"\n-------------------------------------------------\n";
         ArrayList<String> enclst = new ArrayList<String>();
 
         for (char c: ss.toCharArray()){
@@ -72,7 +94,7 @@ public class Enco{
         return String.join(" ", enclst);
     }
  
-    static String decod (String ss){
+    public static String decod (String ss){
         StringBuilder dec = new StringBuilder();
         String[] splited = ss.split("\\s+");
         for (int i = splited.length - 1; i >= 0; i--){
@@ -125,11 +147,49 @@ public class Enco{
 
     }
     
+    public static void pass(){
+        String fullpath = "C:/Users/ganes/Thoughts/scrtgc.txt";
+        Path datapath = Path.of(fullpath);
+
+        try
+        {
+            FileReader fread = new FileReader(datapath.toString());
+            BufferedReader bread = new BufferedReader(fread);
+
+            if (bread.readLine() == null){
+                new newPass();
+            }else{
+                new TextField();
+            }
+            bread.close();
+            fread.close();
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+
+
+    }
+    
+    public static void passSet(String ss){
+        
+        Path datapath = Path.of("C:/Users/ganes/Thoughts/scrtgc.txt");
+        try{
+            FileWriter fwrite = new FileWriter(datapath.toString(), true);
+            fwrite.write(encod(ss));
+            fwrite.close();
+            new TextField();
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
     // --------------------------------------------------------
 
     public static void main(String[] args){
 
-        
+        pass();
+        /*
         Scanner sc = new Scanner(System.in);
         out("Select your file here");
         String flnm = sc.nextLine();
@@ -209,7 +269,7 @@ public class Enco{
             else{out("Really? How high are you?");}
         }
         sc.close();
-        
+        */
     }
 }
 
