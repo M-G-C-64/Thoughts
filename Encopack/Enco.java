@@ -93,7 +93,17 @@ public class Enco{
         }
         return String.join(" ", enclst);
     }
- 
+
+    public static String encodpass (String ss){
+        ArrayList<String> enclst = new ArrayList<String>();
+
+        for (char c: ss.toCharArray()){
+            int temp =  c;
+            enclst.add(0, Integer.toOctalString(temp*temp)+" ");
+        }
+        return String.join(" ", enclst);
+    }
+
     public static String decod (String ss){
         StringBuilder dec = new StringBuilder();
         String[] splited = ss.split("\\s+");
@@ -107,11 +117,30 @@ public class Enco{
     }
 
     public static Boolean PassCheck (String ss){
-        String corrPass = "5220  5544  10000  22604  21501  22301  21501";
-        if (ss.equals(decod(corrPass))){
-            return true;
+        //String corrPass = "5220  5544  10000  22604  21501  22301  21501";
+        String fullpath = System.getProperty("user.dir") + "/fls/" + "scrtgc.txt";
+        Path datapath = Path.of(fullpath);
+        try
+        {
+            FileReader fread = new FileReader(datapath.toString());
+            BufferedReader bread = new BufferedReader(fread);
+
+            String buff;
+            buff = bread.readLine();
+
+            bread.close();
+            fread.close();
+            out(decod(buff));
+            if (ss.equals(decod(buff))){
+                return true;
+            }
+            
+
+        }catch(IOException e){
+            e.printStackTrace();
         }
         return false;
+
     }
 
     public static Boolean Selcfile(String flnm, Boolean bl){
@@ -148,7 +177,9 @@ public class Enco{
     }
     
     public static void pass(){
-        String fullpath = "C:/Users/ganes/Thoughts/scrtgc.txt";
+        String fullpath = System.getProperty("user.dir") + "/fls/" + "scrtgc.txt";
+
+        //String fullpath = "C:/Users/ganes/Thoughts/scrtgc.txt";
         Path datapath = Path.of(fullpath);
 
         try
@@ -172,11 +203,12 @@ public class Enco{
     }
     
     public static void passSet(String ss){
-        
-        Path datapath = Path.of("C:/Users/ganes/Thoughts/scrtgc.txt");
+        String fullpath = System.getProperty("user.dir") + "/fls/" + "scrtgc.txt";
+        Path datapath = Path.of(fullpath);
         try{
             FileWriter fwrite = new FileWriter(datapath.toString(), true);
-            fwrite.write(encod(ss));
+            out(ss);
+            fwrite.write(encodpass(ss));
             fwrite.close();
             new TextField();
 
